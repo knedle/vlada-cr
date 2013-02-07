@@ -1,0 +1,23 @@
+{* This is the welcome page, you can delete it *}
+
+{block content}
+
+<ul>
+{foreach $osa as $udaj}
+	<li>
+		<h3>{$udaj->datum|date:"%d.%m.%Y"}</h3>
+		<h4 n:if="$udaj->id_osoba">{$udaj->osoba->cele_jmeno} <span n:if="$udaj->id_strana">({$udaj->strana->nazev})</span></h4>
+		<p>{$udaj->typ}</p>
+		<p n:if="$udaj->id_kabinet">{$udaj->kabinet->nazev} ({$udaj->kabinet->ministerstvo})</p>
+	</li>
+{/foreach}
+</ul>
+
+{/block}
+
+
+{block head}
+<style>
+
+</style>
+{/block}

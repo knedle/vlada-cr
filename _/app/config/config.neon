@@ -1,0 +1,56 @@
+#
+# SECURITY WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+#
+# If you don't protect this directory from direct web access, anybody will be able to see your passwords.
+# http://nette.org/security-warning
+#
+common:
+	parameters:
+
+	php:
+		date.timezone: Europe/Prague
+		# zlib.output_compression: yes
+
+	nette:
+		application:
+			errorPresenter: Error
+
+		database:
+			dsn: 'mysql:host=localhost;dbname=test'
+			user:
+			password:
+
+		session:
+			expiration: 14 days
+
+
+	services:
+		authenticator: Authenticator
+		routerFactory: RouterFactory
+		router: @routerFactory::createRouter
+
+		database: @Nette\Database\Connection
+
+		osoby:
+			factory: @database::table(osoba)
+
+		kabinet:
+			factory: @database::table(kabinet)
+
+		strany:
+			factory: @database::table(strana)
+
+		casovaOsa:
+			factory: @database::table(casova_osa)
+
+		casovaOsa2:
+			factory: @database::table(casova_osa_2)
+
+		timeline:
+			factory: @database::table(timeline)
+
+	factories:
+
+production < common:
+
+development < common:

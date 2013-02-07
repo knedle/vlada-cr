@@ -1,0 +1,73 @@
+{* This is the welcome page, you can delete it *}
+
+{block content}
+
+<h3>Vznik české republiky: 1.1.1993</h3>
+
+<p>Zdroje</p>
+<ul>
+	<li><a href="http://cs.wikipedia.org/wiki/Seznam_vl%C3%A1d_%C4%8Ceska">http://cs.wikipedia.org/wiki/Seznam_vl%C3%A1d_%C4%8Ceska</a>
+		<li><a href="http://www.vlada.cz/cz/clenove-vlady/historie-minulych-vlad/prehled-vlad-cr/1993-2007-cr/vaclav-klaus-1/prehled-ministru-24631/">http://www.vlada.cz/cz/clenove-vlady/historie-minulych-vlad/prehled-vlad-cr/1993-2007-cr/vaclav-klaus-1/prehled-ministru-24631/</a>
+			<li><a href="./_editor/editor.php">administrace</a>
+			</ul>
+
+
+			{var $vypsanyRok = 0}
+			<div class='timeline'>
+				{foreach $osa as $udaj}
+
+				{var $id = $udaj->iid}
+				{capture $rok}
+				{$udaj->datum|date:"%Y"}
+				{/capture}
+				{capture $mesicDen}
+				{$udaj->datum|date:"%d.%m."}
+				{/capture}
+
+				<div class="well">
+					<div class="row">
+
+						<div class="span2">
+							{if $rok <> $vypsanyRok}
+							<b>{$rok}</b>
+							{var $vypsanyRok = $rok}
+							{/if}&nbsp;
+						</div>
+
+						<div class="span2">
+							<b>{$mesicDen}</b>
+						</div>
+
+						<div class="span7">
+							<h4 n:if="$udaj->osoba_id">{$udaj->cele_jmeno} <span n:if="$udaj->strana_id">({$udaj->strana_nazev})</span></h4>
+							<p>{$udaj->typ}</p>
+							<p n:if="$udaj->kabinet_id">{$udaj->kabinet_nazev} <span n:if="$udaj->ministerstvo">({$udaj->ministerstvo})</span></p>
+						</div>
+						{if !empty($data2[$udaj->start_konec][$udaj->iid])}
+						{foreach $data2[$udaj->start_konec][$udaj->iid] as $ministr}
+						<p n:if="$ministr[osoba_id]">
+							<span class="span2 offset4">{$ministr[cele_jmeno]} <span n:if="$ministr[strana_id]">({$ministr[strana_nazev]})</span></span>
+							<span class="span1">jako </span>
+							<span n:if="$ministr[kabinet_id]" class="span4">{$ministr[kabinet_nazev]} <span n:if="$ministr[ministerstvo]">({$ministr[ministerstvo]})</span></span>
+						</p>
+						{/foreach}
+
+
+						{/if}
+
+
+
+
+					</div>
+				</div>
+				{/foreach}
+			</div>
+
+			{/block}
+
+
+			{block head}
+			<style>
+
+			</style>
+			{/block}

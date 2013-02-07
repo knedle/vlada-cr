@@ -1,0 +1,11 @@
+parameters:
+
+nette:
+	database:
+		dsn: 'mysql:host=localhost;dbname=1vladacr'
+		user: root
+		password:
+
+services:
+
+factories:
