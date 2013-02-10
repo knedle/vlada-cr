@@ -50,7 +50,11 @@ class VladaPresenter extends BasePresenter
 			if (!empty($value->konec_parent_id)) {
 				$osobaStranaKabinet['poznamka'] = $value->konec_poznamka;
 				$parent_id = $value['konec_parent_id'];
-				$podrizeni['konec'][$parent_id][$osoba_id] = $osobaStranaKabinet;
+				if (empty($podrizeni['konec'][$parent_id][$osoba_id])) {
+					$podrizeni['konec'][$parent_id][$osoba_id] = $osobaStranaKabinet;
+				} else {
+					$podrizeni['konec'][$parent_id][$osoba_id]['kabinet_nazev'] .= ' a ' . $osobaStranaKabinet['kabinet_nazev'];
+				}
 			}
 
 // 			if ($value->id == 22) {

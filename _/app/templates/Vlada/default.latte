@@ -12,6 +12,7 @@
 </ul>
 
 {var $vypsanyRok = 0}
+{var $vypsanyDenMesic = 0}
 <div class='timeline'>
 	{foreach $osa as $udaj}
 
@@ -31,6 +32,13 @@
 {var $vypsatRok = false}
 {/if}
 
+{if $mesicDen <> $vypsanyDenMesic}
+{var $vypsatDenMesic = true}
+{var $vypsanyDenMesic = $mesicDen}
+{else}
+{var $vypsatDenMesic = false}
+{/if}
+
 {if $udaj->typ == 'jmenovani_vlady'}
 <hr>
 {/if}
@@ -38,13 +46,15 @@
 	<div class="row jedenUdaj typ{$udaj->start_konec|firstUpper} typ{$udaj->typ|firstUpper}">
 
 		<div class="span2 rok">
-			{if $vypsatRok}			
+			{if $vypsatRok}
 			<span id="{$rok|trim}" class="h2">{$rok|trim}</span>
 			{/if}
 		</div>
 
 		<div class="span2 h3 mesicDen" title="{$mesicDen|trim}{$vypsanyRok|trim}">
+			{if $vypsatDenMesic}
 			{$mesicDen|trim}
+			{/if}
 		</div>
 
 		<div class="span8 udajeDne" id="{$udaj->start_konec}{$udaj->iid}">
@@ -62,7 +72,9 @@
 					<a href="#start{$udaj->iid}" title="začátek ve funkci" class="souvisejiciUdaj"><i class="icon-step-backward"></i></a>
 				</div>
 			{elseif $udaj->typ == 'demise_vlady' || $udaj->typ == 'konec_mandatu_vlady_po_demisi'}
-				<span class="h3 typUdaje">{$udaj->typ}</span>
+				<div class='red {$udaj->typ} lite'>
+					<span class="h3 typUdaje">{$udaj->typ}</span>
+				</div>
 			{else}
 				<span class="typUdaje">{$udaj->typ}</span>
 			{/if}
@@ -116,6 +128,9 @@ div.red {
 
 div.red.lite {
 	border-bottom: 4px solid #990033;
+}
+div.red.lite.demise_vlady {
+	border-bottom: 4px dotted #990033;
 }
 
 hr.blue {
