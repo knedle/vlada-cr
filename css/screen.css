@@ -44,3 +44,22 @@ form .error {
 	color: #D00;
 	font-weight: bold;
 }
+
+.i {
+	font-style: italic;
+}
+
+.h3 {
+	font-size: 18px;
+	line-height: 27px;	
+}
+
+.h2 {
+	font-size: 25px;
+	line-height: 27px;	
+}
+
+.pseudoWell {
+	padding: 19px;
+	margin-bottom: 20px;	
+}

@@ -7,67 +7,131 @@
 <p>Zdroje</p>
 <ul>
 	<li><a href="http://cs.wikipedia.org/wiki/Seznam_vl%C3%A1d_%C4%8Ceska">http://cs.wikipedia.org/wiki/Seznam_vl%C3%A1d_%C4%8Ceska</a>
-		<li><a href="http://www.vlada.cz/cz/clenove-vlady/historie-minulych-vlad/prehled-vlad-cr/1993-2007-cr/vaclav-klaus-1/prehled-ministru-24631/">http://www.vlada.cz/cz/clenove-vlady/historie-minulych-vlad/prehled-vlad-cr/1993-2007-cr/vaclav-klaus-1/prehled-ministru-24631/</a>
-			<li><a href="./_editor/editor.php">administrace</a>
-			</ul>
+	<li><a href="http://www.vlada.cz/cz/clenove-vlady/historie-minulych-vlad/prehled-vlad-cr/1993-2007-cr/vaclav-klaus-1/prehled-ministru-24631/">http://www.vlada.cz/cz/clenove-vlady/historie-minulych-vlad/prehled-vlad-cr/1993-2007-cr/vaclav-klaus-1/prehled-ministru-24631/</a>
+	<li><a href="./_editor/editor.php">administrace</a>
+</ul>
 
+{var $vypsanyRok = 0}
+<div class='timeline'>
+	{foreach $osa as $udaj}
 
-			{var $vypsanyRok = 0}
-			<div class='timeline'>
-				{foreach $osa as $udaj}
+{var $id = $udaj->iid}
+{capture $rok}
+{$udaj->datum|date:"%Y"}
+{/capture}
+{capture $mesicDen}
+{$udaj->datum|date:"%d.%m."}
+{/capture}
 
-				{var $id = $udaj->iid}
-				{capture $rok}
-				{$udaj->datum|date:"%Y"}
-				{/capture}
-				{capture $mesicDen}
-				{$udaj->datum|date:"%d.%m."}
-				{/capture}
+{if $rok <> $vypsanyRok}
+{var $vypsatRok = true}
+{var $vypsanyRok = $rok}
+<hr class='blue'>
+{else}
+{var $vypsatRok = false}
+{/if}
 
-				<div class="well">
-					<div class="row">
+{if $udaj->typ == 'jmenovani_vlady'}
+<hr>
+{/if}
 
-						<div class="span2">
-							{if $rok <> $vypsanyRok}
-							<b>{$rok}</b>
-							{var $vypsanyRok = $rok}
-							{/if}&nbsp;
-						</div>
+	<div class="row jedenUdaj typ{$udaj->start_konec|firstUpper} typ{$udaj->typ|firstUpper}">
 
-						<div class="span2">
-							<b>{$mesicDen}</b>
-						</div>
+		<div class="span2 rok">
+			{if $vypsatRok}			
+			<span id="{$rok|trim}" class="h2">{$rok|trim}</span>
+			{/if}
+		</div>
 
-						<div class="span7">
-							<h4 n:if="$udaj->osoba_id">{$udaj->cele_jmeno} <span n:if="$udaj->strana_id">({$udaj->strana_nazev})</span></h4>
-							<p>{$udaj->typ}</p>
-							<p n:if="$udaj->kabinet_id">{$udaj->kabinet_nazev} <span n:if="$udaj->ministerstvo">({$udaj->ministerstvo})</span></p>
-						</div>
-						{if !empty($data2[$udaj->start_konec][$udaj->iid])}
-						{foreach $data2[$udaj->start_konec][$udaj->iid] as $ministr}
-						<p n:if="$ministr[osoba_id]">
-							<span class="span2 offset4">{$ministr[cele_jmeno]} <span n:if="$ministr[strana_id]">({$ministr[strana_nazev]})</span></span>
-							<span class="span1">jako </span>
-							<span n:if="$ministr[kabinet_id]" class="span4">{$ministr[kabinet_nazev]} <span n:if="$ministr[ministerstvo]">({$ministr[ministerstvo]})</span></span>
-						</p>
-						{/foreach}
+		<div class="span2 h3 mesicDen" title="{$mesicDen|trim}{$vypsanyRok|trim}">
+			{$mesicDen|trim}
+		</div>
 
+		<div class="span8 udajeDne" id="{$udaj->start_konec}{$udaj->iid}">
 
-						{/if}
+			<div class='h3 jmenoStrana' n:if="$udaj->osoba_id">{$udaj->cele_jmeno} <span n:if="$udaj->strana_id">({$udaj->strana_nazev})</span></div>
 
-
-
-
-					</div>
+			{if $udaj->typ == 'jmenovani_vlady'}
+				<div class='red'>
+					<span class="h3 typUdaje">{$udaj->typ}</span>
+					<a href="#konec{$udaj->iid}" title="ukončení ve funkci" class="souvisejiciUdaj"><i class="icon-step-forward"></i></a>
 				</div>
-				{/foreach}
-			</div>
+			{elseif $udaj->typ == 'konec_mandatu_vlady'}
+				<div class='red lite'>
+					<span class="h3 typUdaje">{$udaj->typ}</span>
+					<a href="#start{$udaj->iid}" title="začátek ve funkci" class="souvisejiciUdaj"><i class="icon-step-backward"></i></a>
+				</div>
+			{elseif $udaj->typ == 'demise_vlady' || $udaj->typ == 'konec_mandatu_vlady_po_demisi'}
+				<span class="h3 typUdaje">{$udaj->typ}</span>
+			{else}
+				<span class="typUdaje">{$udaj->typ}</span>
+			{/if}
 
-			{/block}
+			<span n:if="$udaj->kabinet_id" class="kabinetNazev">{$udaj->kabinet_nazev}
+				{* <span n:if="$udaj->ministerstvo" class="kabinetMinisterstvo">({$udaj->ministerstvo})</span> *}
+				{if $udaj->start_konec == start}
+					<a href="#konec{$udaj->iid}" title="ukončení ve funkci" class="souvisejiciUdaj"><i class="icon-step-forward"></i></a>
+				{else}
+					<a href="#start{$udaj->iid}" title="začátek ve funkci" class="souvisejiciUdaj"><i class="icon-step-backward"></i></a>
+				{/if}
+			</span>
+			<div n:if="$udaj->poznamka" class="i clearfix poznamka">{$udaj->poznamka}</div>
+		</div>
+
+		{if !empty($data2[$udaj->start_konec][$udaj->iid])}
+
+		{foreach $data2[$udaj->start_konec][$udaj->iid] as $ministr}
+
+		<div n:if="$ministr[osoba_id]" id="{$udaj->start_konec}{$ministr['id']}" class="rozsireniUdaje">
+			<span class="span2 offset4 ">{$ministr[cele_jmeno]} <span n:if="$ministr[strana_id]">({$ministr[strana_nazev]})</span></span>
+			<span class="span1 jako">jako </span>
+			<span n:if="$ministr[kabinet_id]" class="span4 kabinetNazev">{$ministr[kabinet_nazev]}
+				{* <span n:if="$ministr[ministerstvo]">({$ministr[ministerstvo]})</span> *}
+				{if $udaj->start_konec == start}
+					<a href="#konec{$ministr[id]}" title="ukončení ve funkci" class="souvisejiciUdaj"><i class="icon-step-forward"></i></a>
+				{else}
+					<a href="#start{$ministr[id]}" title="začátek ve funkci" class="souvisejiciUdaj"><i class="icon-step-backward"></i></a>
+				{/if}
+				</span>
+			<span n:if="$ministr[poznamka]" class="span4 offset5 i poznamka">{$ministr[poznamka]}</span>
+		</div>
+
+		{/foreach}
+
+		{/if}
+
+	</div>
+	{/foreach}
+</div>
+
+{/block}
 
 
-			{block head}
-			<style>
+{block head}
+<style>
 
-			</style>
-			{/block}
+div.red {
+	border-bottom: 10px solid #990033;
+}
+
+div.red.lite {
+	border-bottom: 4px solid #990033;
+}
+
+hr.blue {
+	border-top-width: 10px;
+	border-top-color: #336699;
+}
+
+.rok {
+/*	background-color: #336699;
+	color:white;*/
+
+}
+
+.row {
+	margin-bottom: 5px;
+}
+
+</style>
+{/block}

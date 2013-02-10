@@ -17,6 +17,8 @@ class VladaPresenter extends BasePresenter
 		foreach ($osaData as $value) {
 
 			$osobaStranaKabinet = array();
+			$osobaStranaKabinet['id'] = $value['id'];
+
 
 			$osobaStranaKabinet['osoba_id'] = $value->osoba_id;
 			if (!empty($value->osoba_id)) {
@@ -37,6 +39,7 @@ class VladaPresenter extends BasePresenter
 			$osoba_id = $value['osoba_id'];
 
 			if (!empty($value->start_parent_id)) {
+				$osobaStranaKabinet['poznamka'] = $value->start_poznamka;
 				$parent_id = $value['start_parent_id'];
 				if (empty($podrizeni['start'][$parent_id][$osoba_id])) {
 					$podrizeni['start'][$parent_id][$osoba_id] = $osobaStranaKabinet;
@@ -45,9 +48,15 @@ class VladaPresenter extends BasePresenter
 				}
 			}
 			if (!empty($value->konec_parent_id)) {
-			$parent_id = $value['konec_parent_id'];
+				$osobaStranaKabinet['poznamka'] = $value->konec_poznamka;
+				$parent_id = $value['konec_parent_id'];
 				$podrizeni['konec'][$parent_id][$osoba_id] = $osobaStranaKabinet;
 			}
+
+// 			if ($value->id == 22) {
+// //				dump($value);
+// 				dump($osobaStranaKabinet);
+// 			}
 
 		}
 
@@ -56,3 +65,4 @@ class VladaPresenter extends BasePresenter
 	}
 
 }
+
