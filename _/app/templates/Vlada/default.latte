@@ -51,13 +51,13 @@
 			{/if}
 		</div>
 
-		<div class="span2 h3 mesicDen" title="{$mesicDen|trim}{$vypsanyRok|trim}">
+		<div class="span1 h3 mesicDen" title="{$mesicDen|trim}{$vypsanyRok|trim}">
 			{if $vypsatDenMesic}
 			{$mesicDen|trim}
 			{/if}
 		</div>
 
-		<div class="span8 udajeDne" id="{$udaj->start_konec}{$udaj->iid}">
+		<div class="span9 udajeDne" id="{$udaj->start_konec}{$udaj->iid}">
 
 			<div class='h3 jmenoStrana' n:if="$udaj->osoba_id">{$udaj->cele_jmeno} <span n:if="$udaj->strana_id">({$udaj->strana_nazev})</span></div>
 
@@ -95,7 +95,7 @@
 		{foreach $data2[$udaj->start_konec][$udaj->iid] as $ministr}
 
 		<div n:if="$ministr[osoba_id]" id="{$udaj->start_konec}{$ministr['id']}" class="rozsireniUdaje">
-			<span class="span2 offset4 ">{$ministr[cele_jmeno]} <span n:if="$ministr[strana_id]">({$ministr[strana_nazev]})</span></span>
+			<span class="span3 offset3 ">{$ministr[cele_jmeno]} <span n:if="$ministr[strana_id]">({$ministr[strana_nazev]})</span></span>
 			<span class="span1 jako">jako </span>
 			<span n:if="$ministr[kabinet_id]" class="span4 kabinetNazev">{$ministr[kabinet_nazev]}
 				{* <span n:if="$ministr[ministerstvo]">({$ministr[ministerstvo]})</span> *}
@@ -105,7 +105,7 @@
 					<a href="#start{$ministr[id]}" title="začátek ve funkci" class="souvisejiciUdaj"><i class="icon-step-backward"></i></a>
 				{/if}
 				</span>
-			<span n:if="$ministr[poznamka]" class="span4 offset5 i poznamka">{$ministr[poznamka]}</span>
+			<span n:if="$ministr[poznamka]" class="span4 offset4 i poznamka">{$ministr[poznamka]}</span>
 		</div>
 
 		{/foreach}
@@ -146,6 +146,15 @@ hr.blue {
 
 .row {
 	margin-bottom: 5px;
+}
+
+.typDemise .souvisejiciUdaj,
+.typDemise .typUdaje,
+.typDemise_rezignace .souvisejiciUdaj,
+.typDemise_rezignace .typUdaje,
+.typDemise_odvolani .souvisejiciUdaj,
+.typDemise_odvolani .typUdaje {
+	background-color: #ccc;
 }
 
 </style>
