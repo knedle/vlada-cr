@@ -3,6 +3,7 @@ body {
 	line-height: 1.6;
 	color: #333;
 	background: white;
+	padding-top: 50px;
 }
 
 h1 {
@@ -51,15 +52,52 @@ form .error {
 
 .h3 {
 	font-size: 18px;
-	line-height: 27px;	
+	line-height: 27px;
 }
 
 .h2 {
 	font-size: 25px;
-	line-height: 27px;	
+	line-height: 27px;
 }
 
 .pseudoWell {
 	padding: 19px;
-	margin-bottom: 20px;	
+	margin-bottom: 20px;
+}
+/*
+.transparent.navbar, .transparent.navbar .navbar-inner {
+	background-color: transparent !important;
+	background-image: none !important;
+	border: none !important;
+}
+*/
+.navbar-inner ul li, .navbar-inner a.brand {
+	background-color: #fafafa !important;
+}
+
+.fr {
+	float: right !important;
+}
+.nav form {
+	margin: 0 !important;
+}
+.nav form select {
+	margin-top: 5px !important;
+}
+
+.levaOdrazka {
+	padding-left: 35px !important;
+}
+
+.pravaOdrazka {
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+}
+
+.chzn-container {
+	margin-top: 8px;
+}
+
+.gray {
+	color: #ccc;
 }
