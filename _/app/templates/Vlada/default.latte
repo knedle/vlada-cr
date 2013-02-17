@@ -150,8 +150,9 @@
 <script>
 	$(document).ready(function(){
 		$('.souvisejiciUdaj').click(function(){
-			var href = $(this).attr('href');
-			$('span', $(href)).effect("highlight", {}, 3000);
+			var href = $(this).attr('href');			
+			$("html, body").animate({ scrollTop: ($(href).offset().top - 45) }, 1000);
+			$('span', $(href)).effect("highlight", {}, 4000);
 		});
 
 	});

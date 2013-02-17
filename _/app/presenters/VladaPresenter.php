@@ -114,7 +114,7 @@ class VladaPresenter extends BasePresenter
 
 		}
 
-		$this->template->osa = $osa->order('datum ASC, typ DESC');
+		$this->template->osa = $osa->order('datum ASC, poradi ASC, typ DESC');
 		$this->template->data = $osaData;
 		$this->template->data2 = $podrizeni;
 		$this->template->roky = $roky;
