@@ -9,7 +9,7 @@
 {var $filtrace = true}
 {/if}
 
-<p>Vznik české republiky: 1.1.1993</p>
+<p>Vznik České republiky: 1.1.1993</p>
 
 {if !empty($filtrOsoba)} 
 <h3>Filtr na osobu: {$filtrOsoba->cele_jmeno}</h3>
@@ -24,9 +24,9 @@
 
 <p>Zdroje</p>
 <ul>
-	<li><a href="http://cs.wikipedia.org/wiki/Seznam_vl%C3%A1d_%C4%8Ceska">http://cs.wikipedia.org/wiki/Seznam_vl%C3%A1d_%C4%8Ceska</a>
-	<li><a href="http://www.vlada.cz/cz/clenove-vlady/historie-minulych-vlad/prehled-vlad-cr/1993-2007-cr/vaclav-klaus-1/prehled-ministru-24631/">http://www.vlada.cz/cz/clenove-vlady/historie-minulych-vlad/prehled-vlad-cr/1993-2007-cr/vaclav-klaus-1/prehled-ministru-24631/</a>
-	<li><a href="./_editor/editor.php">administrace</a>
+	<li><a href="http://www.vlada.cz/">vlada.cz</a>
+	<li><a href="http://cs.wikipedia.org/wiki/Seznam_vl%C3%A1d_%C4%8Ceska">CZ Wiki: Seznam vlád Česka</a>
+	<!--li><a href="./_editor/editor.php">administrace</a-->
 </ul>
 
 {var $vypsanyRok = 0}
@@ -93,7 +93,7 @@
 					<span class="h3 typUdaje">{$udaj->typ}</span>
 					<a href="#start{$udaj->iid}" title="začátek ve funkci" class="souvisejiciUdaj"><i class="icon-step-backward"></i></a>
 				</div>
-			{elseif $udaj->typ == 'demise_vlady' || $udaj->typ == 'konec_mandatu_vlady_po_demisi'}
+			{elseif $udaj->typ == 'demise_vlady' || $udaj->typ == 'konec_mandatu_vlady_po_demisi' || $udaj->typ == 'vysloveni_neduvery_vlade'}
 				<div class='red {$udaj->typ} lite'>
 					<span class="h3 typUdaje">{$udaj->typ}</span>
 				</div>
@@ -168,6 +168,9 @@ div.red.lite {
 	border-bottom: 4px solid #990033;
 }
 div.red.lite.demise_vlady {
+	border-bottom: 4px dotted #990033;
+}
+div.red.lite.demise_vlady, div.red.lite.vysloveni_neduvery_vlade {
 	border-bottom: 4px dotted #990033;
 }
 

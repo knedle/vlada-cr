@@ -4,6 +4,7 @@ body {
 	color: #333;
 	background: white;
 	padding-top: 50px;
+	padding-bottom: 70px;
 }
 
 h1 {
@@ -64,16 +65,6 @@ form .error {
 	padding: 19px;
 	margin-bottom: 20px;
 }
-/*
-.transparent.navbar, .transparent.navbar .navbar-inner {
-	background-color: transparent !important;
-	background-image: none !important;
-	border: none !important;
-}
-*/
-.navbar-inner ul li, .navbar-inner a.brand {
-	background-color: #fafafa !important;
-}
 
 .fr {
 	float: right !important;
@@ -100,4 +91,8 @@ form .error {
 
 .gray {
 	color: #ccc;
+}
+
+.licence {
+	padding-top: 5px;
 }
